@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: LGPL-2.1-or-later
+# Copyright © 2013-2018 ANSSI. All Rights Reserved.
+EXE:=scdaemon
+SRC:=src_client
+
+CC=gcc
+CFLAGS+=-O2 -Wall -Werror -pthread
+LDFLAGS+=-lpthread
+
+#CFLAGS+=-O1 -Wall -g
+
+
+
+########
+
+include Makefile.common

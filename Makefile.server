@@ -1,0 +1,36 @@
+# SPDX-License-Identifier: LGPL-2.1-or-later
+# Copyright © 2013-2018 ANSSI. All Rights Reserved.
+EXE:=scdaemon
+SRC:=src_server
+
+CC=gcc
+CFLAGS:=-Wall -Werror $(shell pkg-config --cflags libpcsclite) ${CFLAGS}
+LDFLAGS:=-pthread -lgpg-error -lgcrypt $(shell pkg-config --libs libpcsclite) ${LDFLAGS}
+
+LEXFLAGS+=
+YACCFLAGS+=-y -d
+
+#CFLAGS+=-O1 -Wall -g
+#LEXFLAGS+=-d
+#YACFLAGS+=--debug
+
+
+#CFLAGS+= -DDEBUG
+#CFLAGS+= -DDEBUG_SERVICE -DDEBUG_READER
+#CFLAGS+= -DDEBUG_AGENT
+#CFLAGS+= -DDEBUG_OPENPGP
+#CFLAGS+= -DDEBUG_APDU
+
+
+CFLAGS+=-DFIX_S_EXPRESSION_NUMBERS
+
+
+## for vasprintf
+CFLAGS+=-D_GNU_SOURCE
+
+
+########
+
+
+include Makefile.common
+

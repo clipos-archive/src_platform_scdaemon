@@ -1,0 +1,48 @@
+# SPDX-License-Identifier: LGPL-2.1-or-later
+# Copyright © 2013-2018 ANSSI. All Rights Reserved.
+
+CFLAGS+=-I"$(SRC)"
+
+LEXFILES:=$(wildcard $(SRC)/*.l)
+GLEXCFILES:=$(patsubst %.l,%.c,$(LEXFILES))
+GLEXHFILES:=$(patsubst %.l,%.h,$(LEXFILES))
+
+YACCFILES:=$(wildcard $(SRC)/*.y)
+GYACCCFILES:=$(patsubst %.y,%.c,$(YACCFILES))
+GYACCHFILES:=$(patsubst %.y,%.h,$(YACCFILES))
+
+GENERATEDCFILES:=$(GLEXCFILES) $(GYACCCFILES)
+GENERATEDHFILES:=$(GLEXHFILES) $(GYACCHFILES)
+CFILES:=$(sort $(GENERATEDCFILES) $(wildcard $(SRC)/*.c))
+HFILES:=$(sort $(GENERATEDHFILES) $(wildcard $(SRC)/*.h))
+TILDEFILES:=$(shell find . -name '*~')
+OBJECTS:=$(patsubst %.c,%.o,$(CFILES))
+
+
+
+.PHONY: default clean mrproper pre
+
+.INTERMEDIATE: $(GENERATEDCFILES) $(GENERATEDHFILES)
+
+default: $(EXE)
+
+clean:
+	$(RM) $(OBJECTS)
+
+mrproper: clean
+	$(RM) $(EXE) $(TILDEFILES) $(GENERATEDCFILES) $(GENERATEDHFILES)
+
+%.c %.h: %.l
+	$(LEX) $(LEXFLAGS) --header-file=$(patsubst %.l,%.h,$<) -o $(patsubst %.l,%.c,$<) $<
+
+%.c %.h: %.y
+	$(YACC) $(YACCFLAGS) -o $(patsubst %.y,%.c,$<) $<
+
+pre: $(GENERATEDCFILES) $(GENERATEDHFILES)
+
+%.o: %.c $(GENERATEDCFILES) $(GENERATEDHFILES)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+$(EXE): pre $(OBJECTS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJECTS)
+

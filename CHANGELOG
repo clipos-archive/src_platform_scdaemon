@@ -1,0 +1,106 @@
+# CLIP ChangeLog for app-crypt/scdaemon
+
+*scdaemon-0.2.3-r7 (24 Nov 2016)
+
+  24 Nov 2016; Timothée Ravier <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.3-r7.ebuild, -scdaemon-0.2.3-r6.ebuild:
+  Fix libgcrypt dependency.
+
+*scdaemon-0.2.3-r6 (25 Mar 2015)
+
+  25 Mar 2015; Mickaël Salaün <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.3-r6.ebuild, -scdaemon-0.2.3-r5.ebuild,
+  files/jails/scdaemon/fstab.internal:
+  Set the jails' root read-only.
+
+*scdaemon-0.2.3-r5 (05 May 2014)
+
+  05 May 2014; Vincent Strubel <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.3-r5.ebuild, -scdaemon-0.2.3-r4.ebuild,
+  files/jails/scdaemon/nscleanup:
+  Unmount /home/user as needed when setting up jails.
+
+*scdaemon-0.2.3-r4 (20 Jan 2014)
+
+  20 Jan 2014; Vincent Strubel <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.3-r4.ebuild, -scdaemon-0.2.3-r3.ebuild,
+  -files/conf/scdaemon, -files/scdaemon,
+  +files/scdaemon.start, +files/scdaemon.stop:
+  Use local.d snippets to start/stop scdaemon, rather than a
+  full-blown init script.
+
+*scdaemon-0.2.3-r3 (30 Dec 2013)
+
+  30 Dec 2013; Vincent Strubel <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.3-r3.ebuild, -scdaemon-0.2.3-r2.ebuild:
+  Force rebuild to add openrc dependency.
+
+*scdaemon-0.2.3-r2 (14 Nov 2013)
+
+  14 Nov 2013; Vincent Strubel <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.3-r2.ebuild, -scdaemon-0.2.3-r1.ebuild,
+  files/scdaemon: 
+  Don't run anything unless SMARTCARD_SUPPORT=yes is present
+  in /etc/admin/conf.d/smartcards.
+
+*scdaemon-0.2.3-r1 (14 Nov 2013)
+
+  14 Nov 2013; Vincent Strubel <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.3-r1.ebuild, -scdaemon-0.2.3.ebuild,
+  files/scdaemon, -files/conf/scdaemon.admin:
+  scdaemon init script - improve compat with openrc and make
+  less verbose. Move ADMIN configuration to /etc/admin/conf.d/smartcards,
+  using the OPENPGP_SMARTCARDS variable instead of SCDAEMON_JAILS.
+  This probably makes more sense to the average admin, and has
+  the added benefit of disabling scdaemon unless a specific action
+  is taken.
+
+*scdaemon-0.2.3 (14 Nov 2013)
+
+  14 Nov 2013; ANSSI <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.3.ebuild, -scdaemon-0.2.2.ebuild:
+  Fix bug in scdaemon client part where SIGUSR1 signal was not
+  sent only to scdaemon instance.
+  Add support for gnupg-2.0.22.
+
+*scdaemon-0.2.2 (26 Aug 2013)
+
+  26 Aug 2013; ANSSI <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.2.ebuild, -scdaemon-0.2.1-r2.ebuild:
+  Fix strong bug if empty reader is connected.
+
+*scdaemon-0.2.1-r2 (16 Apr 2013)
+
+  16 Apr 2013; Vincent Strubel <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.1-r2.ebuild, -scdaemon-0.2.1-r1.ebuild,
+  files/scdaemon:
+  Fix stop loop - the list of jails to stop needs to be imported
+  first. Cosmetic changes to init.d/scdaemon outputs.
+  Set owner of scdaemon conf file directly in src_install(), and
+  properly declare it as a CLIP_CONF_FILE.
+
+*scdaemon-0.2.1-r1 (12 Apr 2013)
+
+  12 Apr 2013; ANSSI <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.1-r1.ebuild, -scdaemon-0.2.1.ebuild:
+  Split of configurations files (admin/core).
+
+*scdaemon-0.2.1 (10 Apr 2013)
+
+  10 Apr 2013; ANSSI <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.1.ebuild, -scdaemon-0.2.ebuild:
+  Replaced error code (for eye candy feature with gpg-agent).
+
+*scdaemon-0.2 (10 Apr 2013)
+
+  10 Apr 2013; ANSSI <clipos@ssi.gouv.fr>
+  +scdaemon-0.2.ebuild, -scdaemon-0.1.ebuild:
+  Bug fixes (clients and cards handling).
+
+*scdaemon-0.1 (08 Apr 2013)
+
+  08 Apr 2013; ANSSI <clipos@ssi.gouv.fr>
+  +scdaemon-0.1.ebuild, +ChangeLog, +Manifest, +files:
+  First beta version of scdaemon.
+
+
